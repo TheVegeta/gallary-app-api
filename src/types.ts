@@ -14,3 +14,7 @@ export class IAuthResponse {
   @Field()
   jwt!: string;
 }
+
+export interface IJwtEncode {
+  _id: string;
+}

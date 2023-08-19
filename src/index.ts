@@ -15,6 +15,7 @@ import { buildSchema } from "type-graphql";
 import { AppDataSource } from "./data-source";
 import { PORT } from "./env";
 import { HelloResolver } from "./resolver/HelloResolver";
+import { UserResolver } from "./resolver/UserResolver";
 
 (async () => {
   const app = express();
@@ -26,7 +27,7 @@ import { HelloResolver } from "./resolver/HelloResolver";
 
   const [, schema] = await Promise.all([
     AppDataSource.initialize(),
-    buildSchema({ resolvers: [HelloResolver] }),
+    buildSchema({ resolvers: [HelloResolver, UserResolver] }),
   ]);
 
   app.use("/graphql", async (req: Request, res: Response) => {

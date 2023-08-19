@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import { Field, InputType } from "type-graphql";
 import {
+  BaseEntity,
   BeforeInsert,
   Column,
   CreateDateColumn,
@@ -20,7 +21,7 @@ export class ICreateUser {
 }
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
   @Field()
   @PrimaryColumn()
   _id!: string;
