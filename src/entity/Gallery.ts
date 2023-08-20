@@ -56,6 +56,7 @@ export class Gallery extends BaseEntity {
   @ManyToOne((type) => User, { nullable: true })
   updatedBy!: User;
 
+  @Field(() => String)
   @CreateDateColumn()
   createdAt!: Date;
 
