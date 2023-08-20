@@ -14,6 +14,7 @@ import { lru } from "tiny-lru";
 import { buildSchema } from "type-graphql";
 import { AppDataSource } from "./data-source";
 import { PORT } from "./env";
+import { GalleryResolver } from "./resolver/GalleryResolver";
 import { HelloResolver } from "./resolver/HelloResolver";
 import { UserResolver } from "./resolver/UserResolver";
 
@@ -27,7 +28,10 @@ import { UserResolver } from "./resolver/UserResolver";
 
   const [, schema] = await Promise.all([
     AppDataSource.initialize(),
-    buildSchema({ resolvers: [HelloResolver, UserResolver] }),
+    buildSchema({
+      resolvers: [HelloResolver, UserResolver, GalleryResolver],
+      validate: false,
+    }),
   ]);
 
   app.use("/graphql", async (req: Request, res: Response) => {
@@ -37,7 +41,6 @@ import { UserResolver } from "./resolver/UserResolver";
       method: req.method,
       query: req.query,
     };
-
     if (shouldRenderGraphiQL(request)) {
       res.send(renderGraphiQL());
     } else {
