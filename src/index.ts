@@ -10,17 +10,23 @@ import {
   sendResult,
   shouldRenderGraphiQL,
 } from "graphql-helix";
+import next from "next";
 import { lru } from "tiny-lru";
 import { buildSchema } from "type-graphql";
-import { AppDataSource } from "./data-source";
-import { PORT } from "./env";
-import { GalleryResolver } from "./resolver/GalleryResolver";
-import { HelloResolver } from "./resolver/HelloResolver";
-import { UserResolver } from "./resolver/UserResolver";
+import { AppDataSource } from "./api/data-source";
+import { PORT } from "./api/env";
+import { GalleryResolver } from "./api/resolver/GalleryResolver";
+import { HelloResolver } from "./api/resolver/HelloResolver";
+import { UserResolver } from "./api/resolver/UserResolver";
 
 (async () => {
+  const dev = process.env.NODE_ENV !== "production";
+
   const app = express();
   const cache = lru(1000, 3600000);
+
+  const nextApp = next({ dev });
+  const handle = nextApp.getRequestHandler();
 
   app.use(cors());
   app.use(express.json());
@@ -32,6 +38,7 @@ import { UserResolver } from "./resolver/UserResolver";
       resolvers: [HelloResolver, UserResolver, GalleryResolver],
       validate: false,
     }),
+    nextApp.prepare(),
   ]);
 
   app.use("/graphql", async (req: Request, res: Response) => {
@@ -63,6 +70,10 @@ import { UserResolver } from "./resolver/UserResolver";
 
       sendResult(result, res);
     }
+  });
+
+  app.get("*", async (req, res) => {
+    return handle(req, res);
   });
 
   app.listen(PORT, () => {
