@@ -1,0 +1,41 @@
+mutation AuthUser($options: ICreateUser!) {
+  authUser(options: $options) {
+    success
+    msg
+    username
+    jwt
+  }
+}
+
+mutation RegisterUser($options: ICreateUser!) {
+  registerUser(options: $options) {
+    success
+    msg
+    username
+    jwt
+  }
+}
+
+mutation AddOrUpdateGallary($options: ICreateGallery!) {
+  AddOrUpdateGallary(options: $options) {
+    success
+    msg
+    data
+  }
+}
+
+mutation DeleteGallary($options: IGetById!) {
+  deleteGallary(options: $options) {
+    success
+    msg
+    data
+  }
+}
+
+mutation AddFavouriteGallery($imageId: String!) {
+  addFavouriteGallery(imageId: $imageId) {
+    success
+    msg
+    data
+  }
+}

@@ -13,7 +13,7 @@ import {
 import next from "next";
 import { lru } from "tiny-lru";
 import { buildSchema } from "type-graphql";
-import { AppDataSource } from "./api/data-source";
+// import { AppDataSource } from "./api/data-source";
 import { PORT } from "./api/env";
 import { GalleryResolver } from "./api/resolver/GalleryResolver";
 import { HelloResolver } from "./api/resolver/HelloResolver";
@@ -32,8 +32,8 @@ import { UserResolver } from "./api/resolver/UserResolver";
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  const [, schema] = await Promise.all([
-    AppDataSource.initialize(),
+  const [schema] = await Promise.all([
+    // AppDataSource.initialize(),
     buildSchema({
       resolvers: [HelloResolver, UserResolver, GalleryResolver],
       validate: false,
