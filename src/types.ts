@@ -1,46 +1,46 @@
-export interface ImgbbResponse {
-  data: Data;
-  success: boolean;
-  status: number;
+import { Request, Response } from "express";
+import { Field, InputType, ObjectType } from "type-graphql";
+import { User } from "./entity/user";
+
+@InputType()
+export class IGetById {
+  @Field()
+  id!: string;
 }
 
-export interface Data {
-  id: string;
-  title: string;
-  url_viewer: string;
-  url: string;
-  display_url: string;
-  width: string;
-  height: string;
-  size: string;
-  time: string;
-  expiration: string;
-  image: Image;
-  thumb: Thumb;
-  medium: Medium;
-  delete_url: string;
+@ObjectType()
+export class IAuthResponse {
+  @Field()
+  success!: boolean;
+
+  @Field()
+  msg!: string;
+
+  @Field()
+  username!: string;
+
+  @Field()
+  jwt!: string;
 }
 
-export interface Image {
-  filename: string;
-  name: string;
-  mime: string;
-  extension: string;
-  url: string;
+@ObjectType()
+export class IStatusResponse {
+  @Field()
+  success!: boolean;
+
+  @Field()
+  msg!: string;
+
+  @Field()
+  data!: string;
 }
 
-export interface Thumb {
-  filename: string;
-  name: string;
-  mime: string;
-  extension: string;
-  url: string;
+export interface IJwtEncode {
+  _id: string;
 }
 
-export interface Medium {
-  filename: string;
-  name: string;
-  mime: string;
-  extension: string;
-  url: string;
+export interface MyContext {
+  req: Request;
+  res: Response;
+  user: User;
 }
