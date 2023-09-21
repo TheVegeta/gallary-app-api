@@ -19,7 +19,7 @@ const RenderImage: FC<{
     medium: string;
   };
   myLikedImage: Array<string>;
-  reFetchLiked: VoidFunction;
+  reFetchLiked: () => void;
 }> = memo(({ item, myLikedImage, reFetchLiked }) => {
   const {
     userInfo: { isAuth },
