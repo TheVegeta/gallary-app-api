@@ -12,7 +12,10 @@
     "target": "ES2018" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "lib": [
       "ES2018",
-      "ESNext.AsyncIterable"
+      "ESNext.AsyncIterable",
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
     ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
     // "jsx": "preserve",                                /* Specify what JSX code is generated. */
     "experimentalDecorators": true /* Enable experimental support for legacy experimental decorators. */,
@@ -108,12 +111,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
